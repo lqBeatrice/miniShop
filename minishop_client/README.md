@@ -2,7 +2,7 @@
 
 > 外卖软件APP（node+express+mongod+vue+webpack），实现前后端分离
 
-##1.前端项目搭建
+## 1.前端项目搭建
 
 ```
   #使用vue-cli脚手架搭建
@@ -16,7 +16,7 @@
   npm run dev   http://localhost:8080
   注意这里默认端口8080
 ```
-   ###1.1 项目结构梳理
+   ### 1.1 项目结构梳理
 
   ```
     #build   
@@ -31,7 +31,7 @@
     #package.json    应用包配置文件
   ```
   
-  ###1.2 src源码项目结构分析
+  ### 1.2 src源码项目结构分析
   
     #api             与后端交互接口
     #common          公共资源文件（图片、样式等）
@@ -44,7 +44,7 @@
     #App.vue         应用根组件
     #main.js         应用入口文件
   
-   ###1.3 浏览器兼容性处理 css reset
+   ### 1.3 浏览器兼容性处理 css reset
     1、什么是css reset
        HTML标签在浏览器中都有默认的样式，不同的浏览器的默认样式之间存在差别。
     例如ul默认带有缩进样式，在IE下，它的缩进是由margin实现的，而在Firefox
@@ -56,7 +56,7 @@
        # css文件夹床架reset.css
        # 在index.html中引入reset.css文件
     
-   ###1.4 Fastclick
+   ### 1.4 Fastclick
    >当用户点点击屏幕之后，浏览器并不能立刻判断用户是要进行双击缩放，还是想要进行单击操作。
    因此，iOS Safari 就等待 300 毫秒，以判断用户是否再次点击了屏幕。 于是，300 毫秒延迟就
    这么诞生了。
@@ -66,7 +66,7 @@
      #在main.js中引入，并绑定到body中
           import FastClick from 'fastclick'
           FastClick.attach(document.body);
-   ###1.5 Stylus
+   ### 1.5 Stylus
       #安装stylus依赖包
       npm install stylus stylus-loader --save-dev
       #在common下创建stylus文件夹，在stylus下创建mini.styl
@@ -75,14 +75,17 @@
       <style lang="stylus" rel="stylesheet/stylus">
       
    
-##2.源码分析
+## 2.源码分析
+
 >整体流程：
    - /components/...：创建底部tab路由切换以及头部公共信息栏
    - /pages/...：简单创建好每个静态路由页面
    - /router/index.js：配置好各级路由
    - /main.js：应用入口文件，引入router模块
    - /App.vue：引入Tap组件，并使用<router-link/>
-###2.1 公共组件 /components
+   
+### 2.1 公共组件 /components
+
     #<Tab/> 底部导航栏
        分为首页、搜索、订单、个人中心四个路由页面，这里通过this.$routes.path获取当前路由位置，
      来判断是否为当前路由，从而可以设置不同的样式。
@@ -92,7 +95,8 @@
        分为三部分，其中统一的是中间部分的text栏，其次首页左右两边有搜索框和个人信息栏，可以通
      过插槽slot定义name属性，在首页要显示的部分定义slot="name"即可。
      
-###2.2 一级路由组件 /pages
+### 2.2 一级路由组件 /pages
+
     #<Msite/> 首页
         三部分：头部标题<Top/>、轮播图、商家列表<ShopList/>
         - 轮播图
@@ -114,22 +118,24 @@
     
     #<Login/> 登录
     
-###2.3 Ajax封装
+### 2.3 Ajax封装
+
 >为了实现统一向后端发送请求接口
 
-####2.3.1 封装ajax请求函数
+#### 2.3.1 封装ajax请求函数
 
     #/api/ajax.js
     通过对axios返回的promise对象再包装一层Promise的方法，来简化外部的调用
     
-####2.3.2 封装接口请求函数(重点)
+#### 2.3.2 封装接口请求函数(重点)
 
 >有了发送数据的请求ajax函数，还需要封装一些与后台交互的接口函数
 
 >根据接口文档来定义接口请求函数
 
     #/api/index.js
-#####2.3.2.1 如何解决跨域请求问题（重点）
+##### 2.3.2.1 如何解决跨域请求问题（重点）
+
 >配置代理并测试接口
 
 >除了设置让服务器允许跨域的方法之外，还可以通过配置代理实现跨域请求
@@ -155,18 +161,18 @@
 
 >为了提高前端页面渲染效率，我们可以创建一个数据工厂，统一来管理数据状态
 
-###2.4 Vuex管理数据状态
+### 2.4 Vuex管理数据状态
 
     安装Vuex`npm install vuex --save`用来管理从后台获取的状态数据
     
-####2.4.1 创建Store核心仓库
+#### 2.4.1 创建Store核心仓库
     #/store/index.js
        1. 引入基本模块Vue和Vuex
        2. 引入四个基本模块（state,mutations,actions,getters）
        3. 声明使用组件 #Vue.use(Vuex)
        4. 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
           #export default new Store({state,mutations,actions,getters})
-####2.4.2 四个模块对象
+#### 2.4.2 四个模块对象
     #/state.js
     分析整理出项目中有哪些状态需要管理
     
@@ -198,7 +204,7 @@
     
     - Action 通过 store.dispatch 方法触发
     
-####2.4.3 异步获取数据显示页面
+#### 2.4.3 异步获取数据显示页面
     1. 在项目中注册store
     2. # this.$store.dispatch('getAddress')
        # 还可以使用mapActions语法糖
@@ -222,7 +228,7 @@
        }
        #<Top :title="address.name">
        
-####2.4.4 使用watch与$nextTick解决轮播的Bug
+#### 2.4.4 使用watch与$nextTick解决轮播的Bug
 >一般轮播图的数据也都是从后台获取，这个时候就需要考虑如何解决还没获取数据时Swiper的舒适化问题
 
 >最开始categorys为空数组，有了数据才会显示轮播列表，而要监视categorys的数据变化，就要用到watch。

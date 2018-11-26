@@ -1,12 +1,12 @@
 ## node express 搭建后端服务框架app
     https://blog.csdn.net/jingbo18/article/details/78576547
-   ####全局安装express-generator
+   #### 全局安装express-generator
     npm install express-generator -g
-   ####在当前工作目录下创建一个后端服务应用miniShop_server
+   #### 在当前工作目录下创建一个后端服务应用miniShop_server
     express miniShop_server
     cd miniShop_server, 之后，npm install，安装依赖包。
-   ####安装成功后npm start运行127.0.0.1:3000
-   ######这里因为要前后端代码完全分离，我们重新整理一下目录文件
+   #### 安装成功后npm start运行127.0.0.1:3000
+   ###### 这里因为要前后端代码完全分离，我们重新整理一下目录文件
     "dependencies": {
        "cookie-parser": "~1.4.3",
        "debug": "~2.6.9",
@@ -28,7 +28,7 @@
      }
    根据上面的依赖安装相关的依赖包
      
-   ####目录详细介绍
+   #### 目录详细介绍
    
    - api  
    ajax获取数据接口封装，结合promise
